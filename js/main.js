@@ -15,7 +15,7 @@ document.getElementById('myForm').addEventListener('submit', function (e) {
     if (localStorage.getItem('bookmarks') === null) {
 
         bookmarks.push(bookmark);
-        localStorage.setItem('bookmarks', JSON.stringify(bookmarks))
+        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
 
     } else {
 
@@ -43,14 +43,29 @@ var fetchBookmarks = function () {
     bookmarksResults.innerHTML = '';
     for (var i = 0; i < bookmarks.length; ++i) {
         bookmarksResults.innerHTML += '<div class="well row">' +
-                                        '<h3 class="col-sm-5" id="name_bookmark"><img id="favicon" src="' + bookmarks[i].url + '/favicon.ico' + '" alt="">' + bookmarks[i].name + '</h3>' +
-                                        '<button class="btn btn-info col-sm-offset-4">' +
-                                            'View' +
-                                        '</button>' +
-                                        '<button class="btn btn-danger" id="name_delete">' +
-                                            'Delete' +
-                                        '</button>' +
-                                        '</div>';
+            '<h3 class="col-sm-5 name_bookmark"><img class="favicon" src="' + bookmarks[i].url + '/favicon.ico' + '" alt="">' + bookmarks[i].name + '</h3>' +
+            '<button class="btn btn-info col-sm-offset-4 name_view" onclick="openPage(\'' + bookmarks[i].url + '\')">' +
+            'View' +
+            '</button>' +
+            '<button class="btn btn-danger name_delete" onclick="deleteBookmarks(\'' + bookmarks[i].name + '\')">' +
+            'Delete' +
+            '</button>' +
+            '</div>';
     }
 
+};
+
+var deleteBookmarks = function (value) {
+    var bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+    for (var i = 0; i < bookmarks.length; ++i) {
+        if (bookmarks[i].name === value) {
+            bookmarks.splice(i, 1);
+        }
+    }
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+    fetchBookmarks();
+};
+
+var openPage = function (url) {
+    window.open(url, '_blank');
 };
