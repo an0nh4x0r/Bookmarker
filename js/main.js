@@ -5,6 +5,10 @@ document.getElementById('myForm').addEventListener('submit', function (e) {
     var siteName = document.getElementById('siteName').value,
         siteUrl = document.getElementById('siteUrl').value;
 
+    if (siteUrl.slice(0, 4) !== "http") {
+        siteUrl = "http://" + siteUrl;
+    }
+
     if (!validateForm(siteName, siteUrl)) {
         return false;
     }
