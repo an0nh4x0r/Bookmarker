@@ -88,7 +88,7 @@ var validateForm = function (siteName, siteUrl) {
     var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
     var regex = new RegExp(expression);
 
-    if (siteName.match(regex) === false) {
+    if (!siteUrl.match(regex)) {
         alert('Please enter a valid URL');
         return false;
     }
